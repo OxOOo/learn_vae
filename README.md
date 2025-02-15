@@ -6,7 +6,7 @@ MINST数据集中的原始图片如下:
 
 ![MINST原始图片](./VAE/images/minst.png)
 
-使用VAE生成图片的流程如下:
+使用VAE生成的图片如下:
 
 ![VAE生成图片流程](./VAE/images/vae.png)
 
