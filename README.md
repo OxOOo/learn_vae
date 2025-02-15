@@ -1,10 +1,10 @@
 # VAE
 
-VAE是一个数据生成模型, 可以用于生成和训练数据相似的数据. 本文将会依照论文[Auto-Encoding Variational Bayes](https://arxiv.org/abs/1312.6114)的思路, 推导VAE的原理, 并使用VAE生成MINST数据集中的手写数字图片.
+VAE是一个数据生成模型, 可以用于生成和训练数据相似的数据. 本文将会依照论文[Auto-Encoding Variational Bayes](https://arxiv.org/abs/1312.6114)的思路, 推导VAE的原理, 并使用VAE生成MNIST数据集中的手写数字图片.
 
-MINST数据集中的原始图片如下:
+MNIST数据集中的原始图片如下:
 
-![MINST原始图片](./VAE/images/minst.png)
+![MNIST原始图片](./VAE/images/mnist.png)
 
 使用VAE生成的图片如下:
 
@@ -202,14 +202,14 @@ $$
 
 此外，如果我们采样的数据量 $M$ 足够大，那么对于每个数据点的估计次数 $L$ 可以直接设为 $1$ ，也就是说可以通过采样更多样例数据来减少对单个样例数据的估计次数。
 
-## 示例：在MINST数据集上训练VAE
+## 示例：在MNIST数据集上训练VAE
 
 代码实现以及注释在[VAE/main.ipynb](./VAE/main.ipynb)中.
 
-MINST是著名的手写字识别数据集，数据集中的每个样例数据是一个28x28的灰度图，每个像素的取值范围是0到255。
+MNIST是著名的手写字识别数据集，数据集中的每个样例数据是一个28x28的灰度图，每个像素的取值范围是0到255。
 **这里我们为了方便处理，将每个像素除以255变成0到1之间的值。并且在之后的模型中会将每张图片处理成一个784维的一维向量。**
 
-我们在MINST数据集上训练VAE会训练一个从图片到隐变量的encoder $q_{\phi}(z|x)$ ，以及一个从隐变量到图片的decoder $p_{\theta}(x|z)$ 。有了这个decoder之后，我们就可以构造新的隐变量，然后使用decoder生成和MINST数据集类似的图片。**因此本任务中并不会使用MINIST数据集的label。**
+我们在MNIST数据集上训练VAE会训练一个从图片到隐变量的encoder $q_{\phi}(z|x)$ ，以及一个从隐变量到图片的decoder $p_{\theta}(x|z)$ 。有了这个decoder之后，我们就可以构造新的隐变量，然后使用decoder生成和MNIST数据集类似的图片。**因此本任务中并不会使用MINIST数据集的label。**
 
 训练VAE之前，首先我们需要做一些约定：
 1. 约定隐变量 $z$ 的维度为 $J$ ，即 $z \in \mathbb{R}^J$ 。并且隐变量 $z$ 的分布 $p_{\theta}(z)$ 是一个 $J$ 维相互独立，均值为0方差为1的高斯分布，即 $p_{\theta}(z) = \mathcal{N}(0, I)$ 。这个分布中并没有需要学习的参数，因此也可以直接写成 $p(z) = \mathcal{N}(0, I)$ 。
